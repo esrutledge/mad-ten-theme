@@ -1,0 +1,65 @@
+// variables
+$princeton-orange: #f58025;
+
+$color1: #222;
+$color2: #fafafa;
+$color3: $princeton-orange;
+
+// default styling
+body {
+	color: $color__text-default;
+	position: relative;
+	min-height: 100vh;
+	box-sizing: border-box;
+
+	&, * {
+		box-sizing: inherit;
+	}
+}
+
+body.custom-background {
+	background-position: center;
+	background-repeat: no-repeat;
+	-moz-background-size: cover;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1 a {
+	// color: $color2;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+input, textarea {
+	// border: 1px solid $color1;
+	// background: $color2;
+	// padding: 0.3em 0.4em;
+	// box-shadow: inset -1px -1px 6px $color1;
+}
+
+label{
+	margin-right: 8px;
+}
+
+.site {
+	overflow: hidden;
+	// background: rgba($color1, 0.85);
+	// @include outer-container;
+}
+
+.size-auto,
+.size-full,
+.size-large,
+.size-medium,
+.size-thumbnail {
+	max-width: 100%;
+	height: auto;
+}

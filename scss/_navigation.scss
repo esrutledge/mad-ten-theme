@@ -1,0 +1,115 @@
+.main-menu {
+	$item-fill-padding: 4px;
+	$item-padding: 12px;
+
+	// padding-top: 20px;
+	width: $width__side-nav;
+	position: fixed;
+	left: 0;
+	top: 0;
+
+	.nav-logo-item{
+		height: $height__top-bar;
+		line-height: $height__top-bar;
+		background: #000;
+		margin: 0;
+		padding: 0;
+		font-family: $header-font;
+		color: #fff;
+		background-position: center;
+		@include pu06-retina-image(images/nav_logo-red_orange, 95% auto, $no-repeat: true);
+	}
+
+	ul {
+		background-color: rgba(255, 255, 255, 0.98);
+		padding: 0;
+		margin: 0;
+		box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
+		overflow: scroll;
+		max-height: calc(100vh - #{$height__top-bar});
+		@include transition(max-height 500ms);
+
+
+		li{
+			position: relative;
+			width: 100%;
+			display: block;
+			margin: 0;
+			text-align: center;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+			padding: ($item-padding * 1.5) $item-padding ($item-padding * 2);
+			@include transition(background-color 300ms);
+
+			&.active{
+				background-color: $color__branding-primary;
+			}
+
+			&:hover{
+				background-color: $color__subtle-accent;
+			}
+
+
+
+			&:last-of-type{
+				border-bottom: none;
+			}
+			a {
+				font-family: $header-font;
+				font-weight: 500;
+				text-transform: uppercase;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				line-height: 1.2em;
+				font-size: 0.8em;
+    		letter-spacing: 0.03em;
+    		display: block;
+    		@include icon-sprite('images/mad_men_icons-centered', 70px 60px, 1, 4 1, $list: (reunions, contact, news, home), $pseudo-element: ':before');
+
+				&:before{
+					content: '';
+					display: inline-block;
+					width: 70px;
+					height: 60px;
+					margin-bottom: 4px;
+				}
+
+				.item-title {
+					display: block;
+					color: $color__text-default;
+					// @include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: $item-fill-padding, $optional-top-border-width: 0.2em, $vertical-adjust: -0.11em);
+
+					&:before{
+						content: '';
+						display: block;
+						width: 100%;
+					}
+					span{
+						&:first-of-type{
+							color: $color__branding-primary;
+						}
+					}
+				}
+
+			}
+		}
+	}
+
+	.menu-item {
+
+	}
+
+}
+
+// media queries
+
+@media screen and (max-width: $bp-mid-high){
+	.main-menu{
+		width: $width__side-nav--tablet;
+
+		.nav-logo-item{
+			height: $height__top-bar--tablet;
+			line-height: $height__top-bar--tablet;
+		}
+	}
+}

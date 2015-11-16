@@ -1,0 +1,117 @@
+.site-header {
+	// position: fixed;
+	width: 100%;
+	height: $height__top-bar;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba($color__branding-secondary-dark, 0.9);
+	z-index: 1;
+
+	.nav-social-links {
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+
+		ul{
+			$icon-padding: 6px;
+			height: 100%;
+			padding: $icon-padding;
+			li {
+				display: inline-block;
+				height: 100%;
+				a {
+					position: relative;
+					display: inline-block;
+					height: $height__top-bar - (2 * $icon-padding);
+					width: $height__top-bar - (2 * $icon-padding);
+					overflow: hidden;
+					text-indent: 100%;
+					white-space: nowrap;
+					margin-left: 3px;
+					@include icon-sprite('images/social-icons-sprite', 100%, 1, 3 3, $list: (facebook, twitter, instagram), $pseudo-element: ':after');
+					@include icon-sprite('images/social-icons-sprite', 100%, 2, 3 3, $list: (facebook, twitter, instagram), $pseudo-element: ':before');
+
+					span{
+
+					}
+					&:before, &:after {
+						content: '';
+						display: block;
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						left: 0;
+						top: 0;
+						opacity: 0;
+						@include transition(opacity 300ms);
+					}
+					&:after {
+						opacity: 1;
+					}
+
+					&:hover{
+						&:before{ opacity: 1; }
+						// &:after{ opacity: 0; }
+					}
+				}
+			}
+		}
+	}
+}
+
+.custom-header {
+	position: absolute;
+	top:0;
+	width: 100%;
+	img{ width: 100%; }
+}
+
+.logo {
+	position: relative;
+	z-index: 2;
+
+	.blog-name {
+		margin: 0;
+		font-family: $base-font;
+		font-size: 0.65em;
+		display: inline-block;
+		line-height: $height__top-bar;
+		color: #eee;
+		font-weight: 300;
+		letter-spacing: 0.3em;
+		margin-left: $width__side-nav + 16px;
+	}
+
+	.blog-description {
+		display: none;
+	}
+}
+
+// media queries
+
+@media screen and (max-width: $bp-mid-high){
+	.site-header {
+		height: $height__top-bar--tablet;
+
+		.nav-social-links {
+
+			ul{
+				$icon-padding: 5px;
+				padding: $icon-padding;
+				li {
+					a {
+						height: $height__top-bar--tablet - (2 * $icon-padding);
+						width: $height__top-bar--tablet - (2 * $icon-padding);
+					}
+				}
+			}
+		}
+	}
+
+	.logo .blog-name {
+		line-height: $height__top-bar--tablet;
+		margin-left: $width__side-nav--tablet + 16px;
+	}
+}

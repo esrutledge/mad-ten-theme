@@ -1,0 +1,69 @@
+.footer-widgets {
+  $bg-opacity: 1;
+  $black: false;
+  $black-opacity: 1;
+  $mask: true;
+  $mask-bg-color: #000;
+  $invert-text: true;
+
+	@include clearfix;
+	@include span-columns(12);
+
+	background: transparent;
+	list-style: none;
+	margin: 0;
+  position: relative;
+  bottom: 0;
+  padding: 0;
+  text-align: center;
+
+  p {
+    padding: 12px;
+    margin: 0;
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  &:before{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background-repeat: repeat-x;
+  }
+
+  @if($mask){
+    &, &:before{
+      background-color: $mask-bg-color;
+    }
+    &:before{
+      background-position: left top;
+      @include pu06-retina-image(images/skyline-repeating-white_mask, auto 100%);
+    }
+    @if($invert-text){
+      p{ color: rgba(255, 255, 255, 0.8); }
+    }
+  } @else {
+    &:before{
+      background-position: left bottom;
+    }
+
+    @if($black){
+      background-color: rgba(0, 0, 0, $black-opacity);
+      p { color: rgba(255, 255, 255, 0.8); }
+      &:before {
+        @include pu06-retina-image(images/skyline-repeating-black, auto 100%);
+        opacity: $black-opacity;
+      }
+    } @else {
+      background-color: rgba($color__branding-primary, $bg-opacity);
+      &:before {
+        @include pu06-retina-image(images/skyline-repeating-red_orange, auto 100%);
+        opacity: $bg-opacity;
+      }
+    }
+  }
+}

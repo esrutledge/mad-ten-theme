@@ -1,0 +1,37 @@
+// Flexible Retina Backgrounds
+// (extended from Matterhorn mtt-retina-image mixin)
+// Usage:
+// 1. create background image for pixel ratio 1 screens and put it somewhere in your images folder.
+// 2. create background image for pixel ratio 2 screens and put it somewhere in your images folder with suffix @2x
+// 3. include the mixin in your Sass/Scss using: '@include tm-retina-image(<ratio-1-imagefile>, <optional params...>)'
+//    a) if the exact size of the assets is desired, then no $background-size param is necessary
+//    b) if the retina asset is named correctly with `@2x` appended to the end, no $retina-filename param is necessary
+//    c) extension type only needs to be included if the extension of the file is NOT `.png`
+//    d) an optional parameter is included to assign `background-repeat: no-repeat;` if desired to save space
+
+
+@mixin hidpi{
+  @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3/2), (min--moz-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 144dppx) {
+    @content;
+  }
+}
+
+@mixin pu06-retina-image($filename, $background-size: null, $extension: png, $retina-filename: null, $no-repeat: false){
+  $normal-url: $filename + "." + $extension;
+  $retina-image-url: if($retina-filename, $retina-filename + "." + $extension, $filename + "@2x" + "." + $extension);
+
+  background-image: url($normal-url);
+
+  @include hidpi {
+    background-image: url($retina-image-url);
+  }
+
+  // background-size override if provided (otherwise use exact size of given assets)
+  @if $background-size {
+    background-size: $background-size;
+  } @else {
+    background-size: (image-width($retina-image-url) / 2) (image-height($retina-image-url) / 2);
+  }
+
+  @if $no-repeat == true { background-repeat: no-repeat; }
+}

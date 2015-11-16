@@ -1,0 +1,63 @@
+// Fluid Icon Sprites
+// (Adapted from Matterhorn)
+// $image-path: passed as retina images are, "subdirectory/asset_name"
+// $icon-size:  pixel values for width & height of desired sizing; if only 1 value is passed, defaults to square sizing
+// $start-row:  row you wish to start on; ie. if row one is white icons and 2 is black icons, and you want a black icon, $start-row is 2
+// $source-image-size: combination of $icon-cols & $icon-rows (in that order) in your sprite asset, passed as a non-comma-spaced value, i.e. "7 2"
+// $icon-cols:  number of columns in your sprite asset
+// $icon-rows:  number of rows in your sprite asset
+// $list:       if there are multiple types of icons in a single sprite, pass a list
+//              the list is passed as class names, ie. icon-games, and in order as they appear in sprite
+//              i.e. (icon-games, icon-video, icon-tv, icon-movies)
+
+@mixin icon-sprite($image-path, $icon-size, $start-row, $source-image-size, $list: null, $pseudo-element: false){
+   $element-name: if($pseudo-element, '&' + $pseudo-element, '&');
+
+   $icon-cols: nth($source-image-size, 1);
+   $icon-rows: nth($source-image-size, 2);
+
+   $background-size: ($icon-cols * 100%) ($icon-rows * 100%);
+
+   #{$element-name}{
+      background-repeat: no-repeat;
+
+      @include pu06-retina-image($image-path, $background-size); //background size to override inheriting full sprite's size from `pu06-retina-image`
+
+      //if only 1 value is passed in $icon-size, use that value for both width and height
+      @if(length($icon-size) > 1){
+         width: nth($icon-size, 1);
+         height: nth($icon-size, 2);
+      }
+      @else{
+         width: $icon-size;
+         height: $icon-size;
+      }
+   }
+
+   //now set the position
+   @include sprite-position($start-row, $source-image-size, $list, $pseudo-element);
+}
+
+//set & override the icon position for sprite (only works when icon-sprite mixin is used)
+@mixin sprite-position($start-row, $source-image-size, $list: null, $pseudo-element: false){
+   $icon-cols: nth($source-image-size, 1);
+   $icon-rows: nth($source-image-size, 2);
+
+   $i: 0; //initial index value for incrementing inside @each loop
+   $x-shift: if($icon-cols > 1, 100%/($icon-cols - 1), 0); //percentage to shift x-pos per icon
+   $y-shift: if($icon-rows > 1, 100%/($icon-rows - 1), 0); //percentage to shift y-pos per icon
+
+   //if there a list is passed, run through position with class matching
+   @if($list){
+      @each $item in $list{
+         $element-name: if($pseudo-element, $item + $pseudo-element, $item);
+         &.#{$element-name}{ background-position: ($i * $x-shift) (($start-row - 1) * $y-shift); }
+         $i: $i + 1; //increment counter
+      }
+   }
+
+   //if no list, class-agnostic & return position
+   @else{
+      background-position: ($i * $x-shift) (($start-row - 1) * $y-shift);
+   }
+}

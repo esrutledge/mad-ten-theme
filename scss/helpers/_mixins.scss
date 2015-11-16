@@ -1,0 +1,37 @@
+@mixin inline-color-fill($color: null, $text-color: #fff, $width: 8px, $optional-top-border-width: false, $side-margins: false, $vertical-adjust: false){
+  display: inline;
+  background-color: $color;
+  box-shadow: $width 0 0 $color, -$width 0 0 $color;
+
+  &, a {
+    color: $text-color;
+  }
+
+  @if($vertical-adjust){
+    & > * {
+      position: relative;
+      bottom: $vertical-adjust;
+      font-size: calc(1em + #{$vertical-adjust});
+    }
+  }
+
+  @if($side-margins){
+    margin-right: $width;
+    margin-left: $width;
+  }
+  // account for IE weirdness
+  // border-color: $color;
+  // border-style: solid;
+  // border-width: 0 1px 0 1px;
+  @if($optional-top-border-width){
+   border: $optional-top-border-width solid $color;
+   border-width: $optional-top-border-width 0;
+   margin-bottom: $optional-top-border-width;
+    margin-top: $optional-top-border-width;
+  }
+}
+
+
+@mixin tracking-to-letter-spacing($tracking){
+ letter-spacing: tracking-to-em($tracking);
+}
