@@ -56,6 +56,7 @@ article {
 .page-content {
 	padding-left: $width__side-nav + $content-padding;
 	padding-bottom: 200px;
+	min-height: calc(100vh - #{$height__top-bar} + 2px);
 }
 
 .post, .post-aside{
@@ -88,7 +89,7 @@ article {
 	margin-left: 0;
 	line-height: 1em;
 	// margin-top: $height__title-bar;
-	@include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 6px, $optional-top-border-width: 0.09em, $side-margins: false, $vertical-adjust: -0.1em);
+	@include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 0.25em, $optional-top-border-width: 0.09em, $side-margins: false, $vertical-adjust: -0.1em);
 	// @include span-columns(10);
 	// @include shift(1);
 
