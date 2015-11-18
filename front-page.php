@@ -9,12 +9,6 @@
 
 get_header(); ?>
 
-	<div class="home-widgets"><?php
-		if ( function_exists( 'dynamic_sidebar' ) ) :
-			dynamic_sidebar( 'home-sidebar' );
-		endif; ?>
-	</div>
-
 	<section class="page-content primary" role="main">
 		<?php
 			if ( have_posts() ) :

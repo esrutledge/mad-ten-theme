@@ -45,16 +45,12 @@
 						<ul class="menu">
 							<?php foreach($items as $item):
 								$title = $item->title;
-								$title_words = explode(' ', $title);
+								// $title_words = explode(' ', $title);
 								$classes = $item->classes == '' ? '' : join($item->classes, ' '); ?>
 
 								<li id="menu-item-<?= $item->ID ?>" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-<?= $item->ID ?>">
 									<a href="<?= $item->url ?>" class="<?= $classes ?>">
-										<span class="item-title">
-											<?php foreach($title_words as $word): ?>
-												<span><?= $word ?></span>
-											<?php endforeach; ?>
-										</span>
+										<span class="item-title"><?= pu06_string_to_spans($title) ?></span>
 									</a>
 								</li>
 
@@ -84,3 +80,9 @@
 				</div>
 
 			</header>
+
+			<div class="right-sidebar"><?php
+				if ( function_exists( 'dynamic_sidebar' ) ) :
+					dynamic_sidebar( 'right-sidebar' );
+				endif; ?>
+			</div>

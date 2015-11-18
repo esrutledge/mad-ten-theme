@@ -50,6 +50,10 @@ label {
   height: auto;
 }
 
+.accent-color {
+  color: #FF5833;
+}
+
 /******************************************************************************\
 	Settings
 \******************************************************************************/
@@ -111,7 +115,6 @@ h5,
 h6 {
   font-family: Oswald, "Helvetica Neue", "Helvetica", "Verdana", sans-serif;
   line-height: 1.2;
-  text-transform: uppercase;
   font-weight: 500;
 }
 @media screen and (min-width: 769px) {
@@ -126,6 +129,11 @@ h6 {
   h6 {
     word-wrap: normal;
   }
+}
+
+h1, .h1, h2, .h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 h1,
@@ -149,6 +157,7 @@ h2,
   font-size: 1.8rem;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
+  letter-spacing: 0.025em;
 }
 @media screen and (min-width: 481px) {
   h2,

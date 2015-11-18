@@ -439,6 +439,10 @@ label {
   height: auto;
 }
 
+.accent-color {
+  color: #FF5833;
+}
+
 /******************************************************************************\
 	Settings
 \******************************************************************************/
@@ -500,7 +504,6 @@ h5,
 h6 {
   font-family: Oswald, "Helvetica Neue", "Helvetica", "Verdana", sans-serif;
   line-height: 1.2;
-  text-transform: uppercase;
   font-weight: 500;
 }
 @media screen and (min-width: 769px) {
@@ -515,6 +518,11 @@ h6 {
   h6 {
     word-wrap: normal;
   }
+}
+
+h1, .h1, h2, .h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 h1,
@@ -538,6 +546,7 @@ h2,
   font-size: 1.8rem;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
+  letter-spacing: 0.025em;
 }
 @media screen and (min-width: 481px) {
   h2,
@@ -764,7 +773,7 @@ p ~ h1 {
 }
 .site-header .nav-social-links ul {
   height: 100%;
-  padding: 6px;
+  padding: 8px;
 }
 .site-header .nav-social-links ul li {
   display: inline-block;
@@ -773,8 +782,8 @@ p ~ h1 {
 .site-header .nav-social-links ul li a {
   position: relative;
   display: inline-block;
-  height: 32px;
-  width: 32px;
+  height: 28px;
+  width: 28px;
   overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
@@ -887,6 +896,52 @@ p ~ h1 {
     margin-left: 134px;
   }
 }
+.right-sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 400px;
+  padding-top: 84px;
+}
+.right-sidebar .widget {
+  position: relative;
+  width: calc(100% - 80px);
+  margin-left: 40px;
+  padding: 32px 16px 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 1em;
+  margin-bottom: 56px;
+}
+.right-sidebar .widget .widgettitle {
+  position: absolute;
+  display: inline-block;
+  width: auto;
+  top: 0;
+  left: 50%;
+  background-color: #000;
+  color: #fff;
+  padding: 4px 8px;
+  white-space: nowrap;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.right-sidebar .widget h3, .right-sidebar .widget h4 {
+  margin-top: 0.4em;
+  color: #FF5833;
+}
+.right-sidebar .widget p {
+  text-align: center;
+}
+.right-sidebar .widget .block {
+  display: block;
+  font-size: 0;
+}
+
 .main-menu {
   width: 140px;
   position: fixed;
@@ -995,9 +1050,6 @@ p ~ h1 {
   display: block;
   width: 100%;
 }
-.main-menu ul li a .item-title span:first-of-type {
-  color: #FF5833;
-}
 
 @media screen and (max-width: 960px) {
   .main-menu {
@@ -1064,12 +1116,13 @@ article:after {
 \******************************************************************************/
 .page-content {
   padding-left: 240px;
+  padding-right: 420px;
   padding-bottom: 200px;
   min-height: calc(100vh - 44px + 2px);
 }
 
 .post, .post-aside {
-  padding: 0 100px 50px 0;
+  padding: 0 0 50px 0;
   max-width: 680px;
 }
 
@@ -1088,28 +1141,15 @@ article:after {
 
 .post-title {
   margin: 1.5em;
-  font-size: 2.3em;
-  letter-spacing: 0.025em;
+  font-size: 2.2em;
   margin-left: 0;
-  line-height: 1em;
+  line-height: 1.1em;
   display: inline;
   background-color: #000;
   box-shadow: 0.25em 0 0 #000, -0.25em 0 0 #000;
-  border: 0.09em solid #000;
-  border-width: 0.09em 0;
-  margin-bottom: 0.09em;
-  margin-top: 0.09em;
 }
 .post-title, .post-title a {
   color: #fff;
-}
-.post-title > * {
-  position: relative;
-  bottom: -0.1em;
-  font-size: calc(1em + -0.1em);
-}
-.post-title .accent-color {
-  color: #FF5833;
 }
 
 .single .post-title:first-child {
@@ -1170,82 +1210,6 @@ article:after {
 /******************************************************************************\
 	Widgets
 \******************************************************************************/
-.page-content .widgets .widgettitle {
-  margin-top: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 1.3;
-}
-@media screen and (min-width: 481px) {
-  .page-content .widgets .widgettitle {
-    font-size: 19.2px;
-    font-size: 1.2rem;
-  }
-}
-@media screen and (min-width: 769px) {
-  .page-content .widgets .widgettitle {
-    font-size: 32px;
-    font-size: 2rem;
-  }
-}
-.page-content .widgets .widget {
-  float: left;
-  display: block;
-  margin-right: 3.06748%;
-  width: 100%;
-  margin-bottom: 2em;
-  color: #111111;
-}
-.page-content .widgets .widget:last-child {
-  margin-right: 0;
-}
-.page-content .widgets .widget:last-child {
-  margin-bottom: 0;
-}
-@media screen and (min-width: 481px) {
-  .page-content .widgets .widget {
-    float: left;
-    display: block;
-    margin-right: 3.06748%;
-    width: 31.28834%;
-    font-size: 12.8px;
-    font-size: 0.8rem;
-    margin-bottom: 0;
-  }
-  .page-content .widgets .widget:last-child {
-    margin-right: 0;
-  }
-  .page-content .widgets .widget:nth-child(3n) {
-    margin-right: 0;
-  }
-  .page-content .widgets .widget:nth-child(3n+1) {
-    clear: left;
-  }
-}
-@media screen and (min-width: 769px) {
-  .page-content .widgets .widget {
-    font-size: 16px;
-    font-size: 1rem;
-  }
-}
-.page-content .widgets .wp-post-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin-bottom: 1em;
-}
-.page-content .widgets .read-more {
-  -webkit-transition: padding 0.25s ease-in-out;
-  -moz-transition: padding 0.25s ease-in-out;
-  transition: padding 0.25s ease-in-out;
-  border-bottom: 2px solid #fff;
-  padding-bottom: 0.25em;
-}
-.page-content .widgets .read-more:hover {
-  border-bottom: 2px solid #fff;
-}
-
 @media screen and (max-width: 960px) {
   .page-content {
     padding-left: 168px;

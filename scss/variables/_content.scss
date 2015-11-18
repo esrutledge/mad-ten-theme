@@ -8,6 +8,7 @@ $height__title-bar: 124px;
 $width__side-nav: 140px;
 
 $content-padding: 100px;
+$content-min-padding: 20px;
 // $content-max-width: $bp-mid-high - (1.5 * $content-padding);
 $content-max-width: 680px;
 
@@ -17,3 +18,6 @@ $width__side-nav--tablet: 118px;
 
 $content-padding--tablet: 50px;
 
+$width__right-sidebar: 400px;
+$width__right-sidebar--closed: 40px;
+$widget__side-padding: 40px;

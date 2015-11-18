@@ -55,12 +55,13 @@ article {
 
 .page-content {
 	padding-left: $width__side-nav + $content-padding;
+	padding-right: $width__right-sidebar + $content-min-padding;
 	padding-bottom: 200px;
 	min-height: calc(100vh - #{$height__top-bar} + 2px);
 }
 
 .post, .post-aside{
-		padding: 0 $content-padding $content-padding/2 0;
+		padding: 0 0 $content-padding/2 0;
 		max-width: $content-max-width;
 }
 
@@ -84,12 +85,12 @@ article {
 
 .post-title {
 	margin: 1.5em;
-	font-size: 2.3em;
-	letter-spacing: 0.025em;
+	font-size: 2.2em;
 	margin-left: 0;
-	line-height: 1em;
+	line-height: 1.1em;
 	// margin-top: $height__title-bar;
-	@include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 0.25em, $optional-top-border-width: 0.09em, $side-margins: false, $vertical-adjust: -0.1em);
+	// @include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 0.25em, $optional-top-border-width: 0.09em, $side-margins: false, $vertical-adjust: -0.1em);
+	@include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 0.25em);
 	// @include span-columns(10);
 	// @include shift(1);
 
@@ -101,9 +102,6 @@ article {
 	// &:first-child {
 	// 	margin-top: 1em;
 	// }
-	.accent-color {
-		color: $color__branding-primary;
-	}
 }
 
 .single .post-title {
@@ -177,59 +175,60 @@ article {
 	Widgets
 \******************************************************************************/
 
-.page-content .widgets {
-	// @include outer-container;
+// .page-content .widgets {
+// 	// @include outer-container;
 
-	.widgettitle {
-		// color: #fff;
-		margin-top: 0;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		line-height: 1.3;
+// 	.widgettitle {
+// 		// color: #fff;
+// 		margin-top: 0;
+// 		overflow: hidden;
+// 		text-overflow: ellipsis;
+// 		white-space: nowrap;
+// 		line-height: 1.3;
 
-		@include media($medium) { @include font-size(1.2); }
+// 		@include media($medium) { @include font-size(1.2); }
 
-		@include media($large) { @include font-size(2); }
-	}
+// 		@include media($large) { @include font-size(2); }
+// 	}
 
-	.widget {
-		@include span-columns(12);
-		margin-bottom: 2em;
-		color: shade($color1, 50%);
+// 	.widget {
+// 		@include span-columns(12);
+// 		margin-bottom: 2em;
+// 		color: shade($color1, 50%);
 
-		&:last-child { margin-bottom: 0; }
+// 		&:last-child { margin-bottom: 0; }
 
-		@include media($medium) {
-			@include span-columns(4);
-			@include omega(3n);
-			@include font-size(.8);
-			margin-bottom: 0;
-		}
+// 		@include media($medium) {
+// 			@include span-columns(4);
+// 			@include omega(3n);
+// 			@include font-size(.8);
+// 			margin-bottom: 0;
+// 		}
 
-		@include media($large) { @include font-size(1); };
-	}
+// 		@include media($large) { @include font-size(1); };
+// 	}
 
-	.wp-post-image {
-		width: 100%;
-		height: auto;
-		display: block;
-		margin-bottom: 1em;
-	}
+// 	.wp-post-image {
+// 		width: 100%;
+// 		height: auto;
+// 		display: block;
+// 		margin-bottom: 1em;
+// 	}
 
-	.read-more {
-		@include transition(padding .25s ease-in-out);
-		border-bottom: 2px solid #fff;
-		padding-bottom: 0.25em;
+// 	.read-more {
+// 		@include transition(padding .25s ease-in-out);
+// 		border-bottom: 2px solid #fff;
+// 		padding-bottom: 0.25em;
 
-		&:hover { border-bottom: 2px solid #fff; }
-	}
-}
+// 		&:hover { border-bottom: 2px solid #fff; }
+// 	}
+// }
 
 
 @media screen and (max-width: $bp-mid-high){
 	.page-content {
 		padding-left: $width__side-nav--tablet + $content-padding--tablet;
+		// padding-right: 16px;
 	}
 
 	.post{

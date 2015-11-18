@@ -10,31 +10,17 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('post'); ?>>
 
-	<h1 class="post-title">
-	<?php
+	<h1 class="post-title"><?php
 
 	$title = get_the_title();
 	$title_formatted = '';
-	$accent_text_override = get_field('accent_color_text_override');
 
-	$words = explode(' ', $title);
-	$title_sections = explode(':', $title);
+	$accent_text_override = get_field('accent_color_text_override');
 
 	if($accent_text_override && $accent_text_override != '') {
 		$title_formatted = '<span>' . str_replace($accent_text_override, '</span><span class="accent-color">' . $accent_text_override . '</span>', $title);
-	}
-	else if(count($title_sections) > 1) {
-		$title_sections[0] = '<span class="accent-color">' . $title_sections[0] . ':</span><span>';
-		$title_formatted = join('', $title_sections) . '</span>';
 	} else {
-		$count = count($words);
-		$shift = $count > 7 ? 2 : ( $count > 5 ? 1 : 0 );
-		$first_section_count = floor($count/2) - $shift - 1;
-
-		$words[0] = '<span class="accent-color">' . $words[0];
-		$words[$first_section_count] = $words[$first_section_count] . '</span><span>';
-
-		$title_formatted = join(' ', $words) . '</span>';
+		$title_formatted = pu06_string_to_spans($title);
 	}
 
 		if ( is_singular() ) :

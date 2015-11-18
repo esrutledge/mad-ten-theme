@@ -67,6 +67,14 @@ if ( function_exists( 'register_sidebars' ) ) {
 			'description' => __( 'Shows in the sites footer', 'pu06' )
 		)
 	);
+
+	register_sidebar(
+		array(
+			'id' => 'right-sidebar',
+			'name' => __( 'Right sidebar widgets', 'pu06' ),
+			'description' => __( 'Shows on the right at larger device sizes', 'pu06' )
+		)
+	);
 }
 
 if ( ! isset( $content_width ) ) $content_width = 650;
@@ -118,3 +126,31 @@ function pu06_post_meta() {
 	}
 	edit_post_link( __( ' (edit)', 'pu06' ), '<span class="edit-link">', '</span>' );
 }
+
+/**
+ * Split string into sections (first by colon then by count)
+ * @return void
+ */
+function pu06_string_to_spans($string) {
+	$words = explode(' ', $string);
+	$string_sections = explode(':', $string);
+	$string_formatted = '';
+
+	if(count($string_sections) > 1) {
+		$string_sections[0] = '<span class="accent-color">' . $string_sections[0] . ':</span><span>';
+		$string_formatted = join('', $string_sections) . '</span>';
+	} else {
+		$count = count($words);
+		$shift = $count > 7 ? 2 : ( $count > 5 ? 1 : 0 );
+		$first_section_count = floor($count/2) - $shift - 1;
+		$words[0] = '<span class="accent-color">' . $words[0];
+		$words[$first_section_count] = $words[$first_section_count] . '</span><span>';
+		$string_formatted = join(' ', $words) . '</span>';
+	}
+
+	return $string_formatted;
+}
+
+
+
+

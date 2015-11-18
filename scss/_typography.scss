@@ -86,9 +86,15 @@ h5,
 h6 {
 	font-family: $header-font;
 	line-height: 1.2;
-    text-transform: uppercase;
     font-weight: 500;
+
     @include media($large) { word-wrap: normal; }
+}
+
+
+h1, .h1, h2, .h2 {
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
 }
 
 h1,
@@ -105,7 +111,7 @@ h2,
     @include font-size(1.8);
     @include leading-rows(2);
     @include trailing-rows(1);
-
+    letter-spacing: 0.025em;
     @include media($medium) { @include font-size(2); }
 }
 
