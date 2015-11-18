@@ -44,4 +44,13 @@
       font-size: 0;
     }
   }
+
+  @media screen and (max-width: $bp-min-auto-sidebar){
+    width: $width__right-sidebar--closed;
+
+    .widget {
+      width: 0;
+      overflow: hidden;
+    }
+  }
 }

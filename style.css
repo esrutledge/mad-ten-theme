@@ -879,7 +879,7 @@ p ~ h1 {
   display: none;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1120px) {
   .site-header {
     height: 38px;
   }
@@ -940,6 +940,15 @@ p ~ h1 {
 .right-sidebar .widget .block {
   display: block;
   font-size: 0;
+}
+@media screen and (max-width: 920px) {
+  .right-sidebar {
+    width: 40px;
+  }
+  .right-sidebar .widget {
+    width: 0;
+    overflow: hidden;
+  }
 }
 
 .main-menu {
@@ -1051,7 +1060,7 @@ p ~ h1 {
   width: 100%;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1120px) {
   .main-menu {
     width: 118px;
   }
@@ -1116,7 +1125,7 @@ article:after {
 \******************************************************************************/
 .page-content {
   padding-left: 240px;
-  padding-right: 420px;
+  padding-right: 440px;
   padding-bottom: 200px;
   min-height: calc(100vh - 44px + 2px);
 }
@@ -1210,17 +1219,24 @@ article:after {
 /******************************************************************************\
 	Widgets
 \******************************************************************************/
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1120px) {
   .page-content {
     padding-left: 168px;
+    padding-right: 420px;
   }
 
   .post {
-    padding: 0 50px 25px 0;
+    padding: 0 0 25px 0;
   }
   .post:before {
     margin-left: -168px;
     height: 88px;
+  }
+}
+@media screen and (max-width: 920px) {
+  .page-content {
+    padding-left: 168px;
+    padding-right: 50px;
   }
 }
 .format-status .date, .format-link .date, .format-quote .date {

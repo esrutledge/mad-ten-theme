@@ -228,11 +228,11 @@ article {
 @media screen and (max-width: $bp-mid-high){
 	.page-content {
 		padding-left: $width__side-nav--tablet + $content-padding--tablet;
-		// padding-right: 16px;
+		padding-right: $width__right-sidebar + $content-min-padding--tablet;
 	}
 
 	.post{
-			padding: 0 $content-padding--tablet $content-padding--tablet/2 0;
+			padding: 0 0 $content-padding--tablet/2 0;
 
 			&:before{
 			margin-left: -$width__side-nav--tablet - $content-padding--tablet;
@@ -240,3 +240,11 @@ article {
 		}
 	}
 }
+
+@media screen and (max-width: $bp-min-auto-sidebar){
+	.page-content {
+		padding-left: $width__side-nav--tablet + $content-padding--tablet;
+		padding-right: $content-padding--tablet;
+	}
+}
+

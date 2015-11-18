@@ -1,14 +1,17 @@
 $bp-min: 420px;
 $bp-mid-low: 600px;
-$bp-mid-high: 960px;
+$bp-mid-high: 1120px;
 $bp-max: 1200px;
+
+$bp-min-auto-sidebar: 920px;
 
 $height__top-bar: 44px;
 $height__title-bar: 124px;
 $width__side-nav: 140px;
 
 $content-padding: 100px;
-$content-min-padding: 20px;
+$content-min-padding: 40px;
+$content-min-padding--tablet: 20px;
 // $content-max-width: $bp-mid-high - (1.5 * $content-padding);
 $content-max-width: 680px;
 
