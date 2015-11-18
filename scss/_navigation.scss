@@ -11,11 +11,9 @@
 	.nav-logo-item{
 		height: $height__top-bar;
 		line-height: $height__top-bar;
-		background: #000;
 		margin: 0;
 		padding: 0;
 		font-family: $header-font;
-		color: #fff;
 		background-position: center;
 		@include pu06-retina-image(images/nav_logo-red_orange, 95% auto, $no-repeat: true);
 	}

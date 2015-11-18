@@ -83,7 +83,7 @@ article {
 
 
 
-.post-title {
+.post-title, h1 {
 	margin: 1.5em;
 	font-size: 2.2em;
 	margin-left: 0;
@@ -126,6 +126,9 @@ article {
 	// background: $color2;
 	// color: $color1;
 	margin-top: 1.5em;
+	p {
+		margin-top: 20px;
+	}
 }
 
 .page .post-content {
