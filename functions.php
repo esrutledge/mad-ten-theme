@@ -12,6 +12,9 @@
 	Theme support, standard settings, menus and widgets
 \******************************************************************************/
 
+// eff youuuuu admin bar
+add_filter('show_admin_bar', '__return_false');
+
 add_theme_support( 'post-formats', array( 'image', 'quote', 'status', 'link' ) );
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'automatic-feed-links' );

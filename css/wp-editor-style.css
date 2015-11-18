@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic|Oswald:400,700,300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic|Oswald:400,700,300|Source+Sans+Pro:400,700,400italic,700italic);
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -6,7 +6,7 @@
 }
 
 body {
-  color: #333;
+  color: #3a3a3a;
   position: relative;
   min-height: 100vh;
   box-sizing: border-box;
@@ -25,6 +25,7 @@ body.custom-background {
 
 a {
   text-decoration: none;
+  color: #FF5833;
 }
 
 img {
@@ -63,7 +64,7 @@ html {
 	Standard font styling
 \******************************************************************************/
 body {
-  font-family: Roboto, "Cooper Hewitt", "Helvetica Neue", "Helvetica", "Verdana", sans-serif;
+  font-family: "Source Sans Pro", "Helvetica Neue", "Helvetica", "Verdana", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
@@ -81,6 +82,8 @@ strong, b {
 p,
 ul,
 ol {
+  font-size: 0.96em;
+  line-height: 1.65em;
   margin-top: 0rem;
   margin-bottom: 1.5rem;
 }

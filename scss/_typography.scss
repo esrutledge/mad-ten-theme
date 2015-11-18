@@ -2,7 +2,8 @@
 	Settings
 \******************************************************************************/
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic|Oswald:400,700,300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic|Oswald:400,700,300|Source+Sans+Pro:400,700,400italic,700italic);
+
 
 // Set standard font sizes in media querys
 html {
@@ -56,6 +57,8 @@ strong, b {
 p,
 ul,
 ol {
+    font-size: 0.96em;
+    line-height: 1.65em;
     @include leading-rows(0);
     @include trailing-rows(1);
 }

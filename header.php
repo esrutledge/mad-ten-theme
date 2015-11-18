@@ -45,10 +45,11 @@
 						<ul class="menu">
 							<?php foreach($items as $item):
 								$title = $item->title;
-								$title_words = explode(' ', $title); ?>
+								$title_words = explode(' ', $title);
+								$classes = $item->classes == '' ? '' : join($item->classes, ' '); ?>
 
 								<li id="menu-item-<?= $item->ID ?>" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-<?= $item->ID ?>">
-									<a href="<?= $item->url ?>" class="<?= $item->attr_title ?>">
+									<a href="<?= $item->url ?>" class="<?= $classes ?>">
 										<span class="item-title">
 											<?php foreach($title_words as $word): ?>
 												<span><?= $word ?></span>
@@ -70,10 +71,11 @@
 							$social_menu = wp_get_nav_menu_object( 'Social Links');
 							$social_items = wp_get_nav_menu_items($social_menu->term_id);
 
-							foreach($social_items as $social_item): ?>
+							foreach($social_items as $social_item):
+								$classes = $social_item->classes == '' ? '' : join($social_item->classes, ' '); ?>
 
 							<li class="social-link">
-								<a href="<?= $social_item->url ?>" class="<?= $social_item->attr_title ?>" target="_blank"><?= $social_item->title ?></a>
+								<a href="<?= $social_item->url ?>" class="<?= $classes ?>" target="_blank"><?= $social_item->title ?></a>
 							</li>
 
 						<?php endforeach; ?>
