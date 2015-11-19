@@ -153,5 +153,3 @@ function pu06_string_to_spans($string) {
 }
 
 
-
-

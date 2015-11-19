@@ -62,39 +62,25 @@
 
 
 				<div class="top-bar-links">
-
-					<p>Give Back:</p>
 					<?php
 						wp_nav_menu(array(
 							'theme_location'  => 'give-back-menu',
-							'menu'            => 'Give Back Links',
+							'menu_class'      => 'give-back-links',
 							'container'       => false,
-							'container_class' => 'give-back-menu-container',
-							'container_id'    => '',
 							'fallback_cb'     => false,
+							'items_wrap'      => '<p>Give Back:</p><ul id="%1$s" class="%2$s">%3$s</ul>',
 						));
+
+						wp_nav_menu(array(
+							'theme_location'  => 'social-links-menu',
+							'menu_class'      => 'nav-social-links',
+							'container'       => false,
+							'fallback_cb'     => false,
+							'items_wrap'      => '<p>Follow Us:</p><ul id="%1$s" class="%2$s">%3$s</ul>',
+						));
+
 					?>
-
-					<p>Follow Us:</p>
-					<ul class="nav-social-links">
-						<?php
-							$social_menu = wp_get_nav_menu_object( 'Social Links');
-							$social_items = wp_get_nav_menu_items($social_menu->term_id);
-
-							foreach($social_items as $social_item):
-								$classes = $social_item->classes == '' ? '' : join($social_item->classes, ' '); ?>
-
-							<li class="social-link <?= $classes ?>">
-								<a href="<?= $social_item->url ?>" target="_blank"><?= $social_item->title ?></a>
-							</li>
-
-						<?php endforeach; ?>
-
-					</ul>
 				</div>
-
-
-
 			</header>
 
 			<div class="quick-links-container">

@@ -33,7 +33,7 @@
 			height: 100%;
 			padding: $icon-padding;
 			display: inline-block;
-			margin-right: 12px;
+			margin: 0 12px 0 0;
 
 			li {
 				display: inline-block;
@@ -79,17 +79,16 @@
 				}
 			}
 
+			&:last-of-type{
+				margin-right: 0;
+			}
+
 			&.give-back-links{
 				padding-right: 8px;
-				border-right: 1px solid #fff;
 				margin-right: 8px;
 				li {
 					margin-right: 4px;
 				}
-			}
-
-			&:last-of-type{
-				margin-right: 0;
 			}
 		}
 	}

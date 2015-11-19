@@ -542,8 +542,8 @@ h1,
 
 h2,
 .h2 {
-  font-size: 28.8px;
-  font-size: 1.8rem;
+  font-size: 25.6px;
+  font-size: 1.6rem;
   margin-top: 3rem;
   margin-bottom: 1.5rem;
   letter-spacing: 0.025em;
@@ -551,8 +551,8 @@ h2,
 @media screen and (min-width: 481px) {
   h2,
   .h2 {
-    font-size: 32px;
-    font-size: 2rem;
+    font-size: 28.8px;
+    font-size: 1.8rem;
   }
 }
 
@@ -789,7 +789,7 @@ p ~ h1 {
   height: 100%;
   padding: 8px;
   display: inline-block;
-  margin-right: 12px;
+  margin: 0 12px 0 0;
 }
 .site-header .top-bar-links ul li {
   display: inline-block;
@@ -878,16 +878,15 @@ p ~ h1 {
 .site-header .top-bar-links ul li a:hover:before {
   opacity: 1;
 }
+.site-header .top-bar-links ul:last-of-type {
+  margin-right: 0;
+}
 .site-header .top-bar-links ul.give-back-links {
   padding-right: 8px;
-  border-right: 1px solid #fff;
   margin-right: 8px;
 }
 .site-header .top-bar-links ul.give-back-links li {
   margin-right: 4px;
-}
-.site-header .top-bar-links ul:last-of-type {
-  margin-right: 0;
 }
 
 .custom-header {
