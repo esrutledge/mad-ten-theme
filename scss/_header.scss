@@ -8,19 +8,40 @@
 	background-color: rgba($color__branding-secondary-dark, 0.9);
 	z-index: 1;
 
-	.nav-social-links {
+	.top-bar-links {
 		position: absolute;
 		right: 0;
 		top: 0;
 		height: 100%;
 
+		p{
+			display: inline-block;
+			color: $color__branding-primary--light;
+			line-height: $height__top-bar;
+			margin: 0;
+			vertical-align: top;
+			// text-transform: uppercase;
+			font-size: 0.7em;
+			color: #ddd;
+			font-weight: 300;
+			letter-spacing: 0.1em;
+			margin-right: -2px;
+		}
+
 		ul{
 			$icon-padding: 8px;
 			height: 100%;
 			padding: $icon-padding;
+			display: inline-block;
+			margin-right: 12px;
+
 			li {
 				display: inline-block;
 				height: 100%;
+
+				@include icon-sprite('images/top-bar-sprite', 100%, 1, 5 2, $list: (facebook, twitter, instagram, annual-giving, pu06-dues), $pseudo-element: ' a:after');
+				@include icon-sprite('images/top-bar-sprite', 100%, 2, 5 2, $list: (facebook, twitter, instagram, annual-giving, pu06-dues), $pseudo-element: ' a:before');
+
 				a {
 					position: relative;
 					display: inline-block;
@@ -30,8 +51,8 @@
 					text-indent: 100%;
 					white-space: nowrap;
 					margin-left: 3px;
-					@include icon-sprite('images/social-icons-sprite', 100%, 1, 3 3, $list: (facebook, twitter, instagram), $pseudo-element: ':after');
-					@include icon-sprite('images/social-icons-sprite', 100%, 2, 3 3, $list: (facebook, twitter, instagram), $pseudo-element: ':before');
+					// @include icon-sprite('images/blah', 100%, 1, 5 2, $list: (facebook, twitter, instagram, annual-giving, pu06), $pseudo-element: ':after');
+					// @include icon-sprite('images/blah', 100%, 2, 5 2, $list: (facebook, twitter, instagram, annual-giving, pu06), $pseudo-element: ':before');
 
 					span{
 
@@ -57,6 +78,19 @@
 					}
 				}
 			}
+
+			&.give-back-links{
+				padding-right: 8px;
+				border-right: 1px solid #fff;
+				margin-right: 8px;
+				li {
+					margin-right: 4px;
+				}
+			}
+
+			&:last-of-type{
+				margin-right: 0;
+			}
 		}
 	}
 }
@@ -78,7 +112,7 @@
 		font-size: 0.65em;
 		display: inline-block;
 		line-height: $height__top-bar;
-		color: #eee;
+		color: #ddd;
 		font-weight: 300;
 		letter-spacing: 0.3em;
 		margin-left: $width__side-nav + 16px;

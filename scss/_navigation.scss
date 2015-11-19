@@ -26,7 +26,9 @@
 		overflow: scroll;
 		// max-height: calc(100vh - #{$height__top-bar});
 		// @include transition(max-height 500ms);
-		height: calc(100vh - #{$height__top-bar});
+		height: auto;
+		max-height: calc(100vh - #{$height__top-bar});
+		min-height: calc(100vh - #{$height__top-bar});
 
 
 		li{
@@ -63,7 +65,7 @@
 				font-size: 0.8em;
     		letter-spacing: 0.03em;
     		display: block;
-    		@include icon-sprite('images/mad_men_icons-5', 70px 60px, 1, 5 1, $list: (reunions, contact, news, home, resources), $pseudo-element: ':before');
+    		@include icon-sprite('images/mad_men_icons-6', 70px 60px, 1, 6 1, $list: (reunions, contact, news, home, resources, officers), $pseudo-element: ':before');
 
 				&:before{
 					content: '';

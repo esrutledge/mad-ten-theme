@@ -50,6 +50,7 @@ add_theme_support( 'custom-background', $custom_bg_args );
 
 register_nav_menu( 'main-menu', __( 'Main Menu', 'pu06' ) );
 register_nav_menu( 'social-links-menu', __( 'Social Links', 'pu06' ) );
+register_nav_menu( 'give-back-menu', __( 'Give Back Links', 'pu06' ) );
 
 if ( function_exists( 'register_sidebars' ) ) {
 	register_sidebar(
@@ -70,9 +71,9 @@ if ( function_exists( 'register_sidebars' ) ) {
 
 	register_sidebar(
 		array(
-			'id' => 'right-sidebar',
-			'name' => __( 'Right sidebar widgets', 'pu06' ),
-			'description' => __( 'Shows on the right at larger device sizes', 'pu06' )
+			'id' => 'quick-links-widgets',
+			'name' => __( 'Quick Links Widgets', 'pu06' ),
+			'description' => __( 'Shows in a modal or sidebar, used for dues widgets, AG, etc', 'pu06' )
 		)
 	);
 }

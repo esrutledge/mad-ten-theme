@@ -34,7 +34,7 @@
 					<div class="blog-description"><?php bloginfo( 'description' ); ?></div>
 				</a>
 
-				<div class="menu">
+				<!-- <div class="navigation-menu"> -->
 					<?php
 						$menu = wp_get_nav_menu_object( 'Main' );
 						$items = wp_get_nav_menu_items($menu->term_id);
@@ -58,11 +58,25 @@
 
 						</ul>
 					</nav>
-				</div>
+				<!-- </div> -->
 
 
-				<div class="nav-social-links">
-					<ul>
+				<div class="top-bar-links">
+
+					<p>Give Back:</p>
+					<?php
+						wp_nav_menu(array(
+							'theme_location'  => 'give-back-menu',
+							'menu'            => 'Give Back Links',
+							'container'       => false,
+							'container_class' => 'give-back-menu-container',
+							'container_id'    => '',
+							'fallback_cb'     => false,
+						));
+					?>
+
+					<p>Follow Us:</p>
+					<ul class="nav-social-links">
 						<?php
 							$social_menu = wp_get_nav_menu_object( 'Social Links');
 							$social_items = wp_get_nav_menu_items($social_menu->term_id);
@@ -70,8 +84,8 @@
 							foreach($social_items as $social_item):
 								$classes = $social_item->classes == '' ? '' : join($social_item->classes, ' '); ?>
 
-							<li class="social-link">
-								<a href="<?= $social_item->url ?>" class="<?= $classes ?>" target="_blank"><?= $social_item->title ?></a>
+							<li class="social-link <?= $classes ?>">
+								<a href="<?= $social_item->url ?>" target="_blank"><?= $social_item->title ?></a>
 							</li>
 
 						<?php endforeach; ?>
@@ -79,10 +93,17 @@
 					</ul>
 				</div>
 
+
+
 			</header>
 
-			<div class="right-sidebar"><?php
-				if ( function_exists( 'dynamic_sidebar' ) ) :
-					dynamic_sidebar( 'right-sidebar' );
-				endif; ?>
+			<div class="quick-links-container">
+				<div class="quick-links">
+					<span class="close"></span>
+					<?php
+						if ( function_exists( 'dynamic_sidebar' ) ) :
+							dynamic_sidebar( 'quick-links-widgets' );
+						endif;
+					?>
+				</div>
 			</div>
