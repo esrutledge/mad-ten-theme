@@ -1,26 +1,67 @@
+//---------------------
+//     BREAKPOINTS
+//---------------------
 $bp-min: 420px;
 $bp-mid-low: 600px;
-$bp-mid-high: 1120px;
+$bp-mid-high: 1024px;
 $bp-max: 1200px;
 
-$bp-min-auto-sidebar: 920px;
 
-$height__top-bar: 44px;
-$height__title-bar: 124px;
-$width__side-nav: 140px;
+//---------------------
+//    DESKTOP/GLOBAL
+//---------------------
 
+// top/bottom navigation
+$height__footer-bar: 40px;
+
+// side navigation
+$width__side-nav: 128px;
+$width__side-nav-icon: 54px;
+$height__side-nav-icon: $width__side-nav-icon / 7 * 6;
+$nav-item-padding: 10px;
+$nav-item-height: 92px;
+
+// post content padding
+$content-max-width: 680px;
 $content-padding: 100px;
 $content-min-padding: 40px;
-$content-min-padding--tablet: 20px;
-// $content-max-width: $bp-mid-high - (1.5 * $content-padding);
-$content-max-width: 680px;
 
-$height__top-bar--tablet: 38px;
-$height__title-bar--tablet: 88px;
-$width__side-nav--tablet: 118px;
+// post styling
+$height__content-color-bar: 124px;
 
-$content-padding--tablet: 50px;
-
-$width__right-sidebar: 400px;
-$width__right-sidebar--closed: 40px;
+// widgets
 $widget__side-padding: 30px;
+
+
+//---------------------
+//       TABLET
+//---------------------
+
+// top/bottom navigation
+$height__footer-bar--tablet: 36px;
+
+// side navigation
+$width__side-nav--tablet: 112px;
+$width__side-nav-icon--tablet: 48px;
+$height__side-nav-icon--tablet: $width__side-nav-icon--tablet / 7 * 6;
+$nav-item-padding--tablet: 8px;
+$nav-item-height--tablet: 82px;
+
+// post content padding
+$content-min-padding--tablet: 20px;
+$content-padding--tablet: 50px;
+$content-padding--mobile: 24px;
+
+// post styling
+$height__content-color-bar--tablet: 88px;
+
+
+//---------------------
+//       MOBILE
+//---------------------
+
+// top/bottom navigation
+$height__footer-bar--mobile: 38px;
+$height__mobile-header: 44px;
+$padding__mobile-footer: 2px;
+

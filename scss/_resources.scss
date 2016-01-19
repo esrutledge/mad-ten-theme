@@ -1,0 +1,98 @@
+.page-content.resources {
+  padding-right: $content-padding;
+
+  @media screen and (max-width: $bp-mid-high){
+    padding-right: 48px;
+  }
+
+  &, .post {
+    max-width: none;
+  }
+  // .post, .post-content{
+  //   margin-bottom: 0;
+  // }
+  // .post {
+  //   padding-bottom: 0;
+  // }
+  // .post-content{
+  //   padding-bottom: 12px;
+  // }
+  //  max-width: none;
+
+  // .resource-widgets {
+  //   padding-left: 0;
+
+    // .resource-row{
+    //   @include display(flex);
+    //   @include flex-direction(row);
+    //   border-top: 1px solid #eee;
+    //   &:last-of-type{
+    //     border-bottom: 1px solid #eee;
+    //   }
+    // }
+
+    // .resource-tile {
+    //   @include flex-grow(1);
+    //     @include display(flex);
+    //     @include flex-direction(row);
+    //   padding: 32px 20px;
+
+    //   // .title{ margin-top: 0; }
+    //   width: 50%;
+    //   // margin: 0 2% 2% 0;
+    //   display: inline-block;
+    //   // min-width: 300px;
+    //   // max-width: 480px;
+    //   text-align: center;
+    //   border-right: 1px solid #eee;
+    //   // border-top: 1px solid #eee;
+
+    //   &:nth-of-type(2n-1){
+    //     border-left: 1px solid #eee;
+    //   }
+
+      // table{
+      //   // display: inline-block;
+      //   margin: 0 auto 16px;
+      // }
+    // }
+  // }
+  // }
+
+  @media screen and (min-width: $bp-mid-high){
+    .resource-row{
+      @include display(flex);
+      @include flex-direction(row);
+      border-top: 1px solid #eee;
+      &:last-of-type{
+        border-bottom: 1px solid #eee;
+      }
+    }
+
+    .resource-tile {
+      @include flex-grow(1);
+        @include display(flex);
+        @include flex-direction(row);
+      padding: 32px 20px;
+
+      // .title{ margin-top: 0; }
+      width: 50%;
+      // margin: 0 2% 2% 0;
+      display: inline-block;
+      // min-width: 300px;
+      // max-width: 480px;
+      text-align: center;
+      border-right: 1px solid #eee;
+      // border-top: 1px solid #eee;
+
+      &:nth-of-type(2n-1){
+        border-left: 1px solid #eee;
+      }
+
+      // table{
+      //   // display: inline-block;
+      //   margin: 0 auto 16px;
+      // }
+    }
+  }
+}

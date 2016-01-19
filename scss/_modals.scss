@@ -1,4 +1,42 @@
 html.modal-no-scroll {
   height: 100%;
-  &, body {  overflow: hidden; }
+  // overflow: visible;
+  body {  overflow: hidden; }
+  // &.ios{
+    // position: fixed;
+    overflow: hidden;
+  // }
+}
+
+
+.modal{
+  z-index: 10;
+
+  .modal-toggle {
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    color: #ddd;
+    font-size: 1.5em;
+    background-position: center;
+    opacity: 0.5;
+    cursor: pointer;
+
+    @include pu06-retina-image(close, 28px, $no-repeat: true);
+
+    // &.light{
+    //   @include pu06-retina-image(close-light, 28px, $no-repeat: true);
+    // }
+
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+
+  &.open {
+    z-index: 100;
+  }
 }

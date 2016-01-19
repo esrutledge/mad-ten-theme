@@ -16,8 +16,8 @@
   }
 
   @if($side-margins){
-    margin-right: $width;
-    margin-left: $width;
+    position: relative;
+    left: $width;
   }
   // account for IE weirdness
   // border-color: $color;

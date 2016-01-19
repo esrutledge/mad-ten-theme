@@ -1,4 +1,4 @@
-.quick-links-container {
+.quick-links-modal {
   $duration: 300ms;
 
   position: fixed;
@@ -7,7 +7,6 @@
   left: 0;
   top: 0;
   background: rgba(0, 0, 0, 0.7);
-  z-index: 2;
   opacity: 0;
   visibility: hidden;
   cursor: pointer;
@@ -27,36 +26,19 @@
   top: 46%;
   left: 50%;
   // width: $width__right-sidebar;
-  width: 50%;
-  max-width: 500px;
+  width: 94%;
+  max-width: 600px;
   // width: auto;
-  // padding-top: $height__top-bar + 40px;
+  // padding-top: $height__footer-bar + 40px;
   padding: 12px 0;
   padding: 32px 24px;
-  background-color: $color__page-background;
+  background-color: #f0f0f0;
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
   z-index: 3;
   cursor: default;
+  list-style-type: none;
   @include transform(translate(-50%, -50%));
 
-  .close {
-    position: absolute;
-    display: block;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    color: #ddd;
-    font-size: 1.5em;
-    background-position: center;
-    opacity: 0.5;
-    cursor: pointer;
-    @include pu06-retina-image(images/close, 28px, $no-repeat: true);
-
-    &:hover{
-      opacity: 0.8;
-    }
-  }
   // &.open {
   //   right: 0;
   // }
@@ -65,7 +47,6 @@
   .widget {
     position: relative;
     width: calc(100% - #{2 * $widget__side-padding});
-    // margin-left: $widget__side-padding;
     padding: 32px 16px 16px;
     background-color: $color__page-background;
     border: 1px solid #ccc;
@@ -84,6 +65,7 @@
       color: #fff;
       padding: 4px 8px;
       white-space: nowrap;
+      margin-top: 0;
       @include transform(translate(-50%, -50%));
     }
 
@@ -96,18 +78,30 @@
       text-align: center;
     }
 
+    table {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 28px;
+    }
+
     .block{
       display: block;
       font-size: 0;
     }
   }
+}
 
-  // @media screen and (max-width: $bp-min-auto-sidebar){
-  //   width: $width__right-sidebar--closed;
 
-  //   .widget {
-  //     width: 0;
-  //     overflow: hidden;
-  //   }
-  // }
+// media queries
+
+@media screen and (max-width: $bp-mid-low){
+  .quick-links{
+    .widget {
+      margin: 16px 0 0;
+      width: 100%;
+      table {
+        &, * { width: 100%; }
+      }
+    }
+  }
 }

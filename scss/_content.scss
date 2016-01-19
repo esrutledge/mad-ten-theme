@@ -2,6 +2,8 @@
 	General
 \******************************************************************************/
 
+@import "resources";
+
 article {
 	@include clearfix;
 }
@@ -55,9 +57,58 @@ article {
 
 .page-content {
 	padding-left: $width__side-nav + $content-padding;
-	padding-right: $width__right-sidebar + $content-min-padding;
+	// padding-right: $width__right-sidebar + $content-min-padding;
+	padding-right: $content-padding;
+
 	padding-bottom: 200px;
-	min-height: calc(100vh - #{$height__top-bar} + 2px);
+	min-height: calc(100vh - #{$height__footer-bar} + 2px);
+
+	.officerBox {
+		h2 { margin-bottom: 0; }
+		.address {
+			font-style: italic;
+			margin-top: 0;
+			margin-bottom: 4px;
+			opacity: 0.55;
+		}
+		.bio {
+			margin-top: 12px;
+		}
+		.image{
+			display: inline-block;
+			margin-bottom: 0;
+			margin-top: 0;
+			float: left;
+			img {
+				width: 150px;
+			}
+		}
+
+		.title {
+			font-size: 1.8em;
+			letter-spacing: 0;
+			a, .position {
+				display: block;
+			}
+			.position {
+				font-size: 0.6em;
+				// font-family: $base-font;
+				letter-spacing: 0.02em;
+				margin-bottom: 2px;
+			}
+		}
+		@media screen and (max-width: $bp-min){
+			.image {
+				width: 100%;
+				img { width: 100%; }
+				margin-bottom: 16px;
+			}
+		}
+	}
+
+	h1, h2, h3, h4, h5 {
+		& + p { margin-top: 0; }
+	}
 }
 
 .post, .post-aside{
@@ -65,15 +116,16 @@ article {
 		max-width: $content-max-width;
 }
 
+
 .post{
 		&:before{
 		content: '';
 		position: relative;
 		display: block;
-		// padding-left: $width__side-nav;
 		margin-left: -$width__side-nav - $content-padding;
-		width: 100vw;
-		height: $height__title-bar;
+		width: 400%;
+		min-width: calc(100vw + #{$width__side-nav} - #{$content-padding});
+		height: $height__content-color-bar;
 		background-color: $color__branding-secondary-dark;
 		margin-bottom: -1.4em;
 		z-index: -1;
@@ -83,14 +135,14 @@ article {
 
 
 
-.post-title, h1 {
+.post-title, h1, .h1 {
 	margin: 1.5em;
 	font-size: 2.2em;
 	margin-left: 0;
 	line-height: 1.1em;
-	// margin-top: $height__title-bar;
+	// margin-top: $height__content-color-bar;
 	// @include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 0.25em, $optional-top-border-width: 0.09em, $side-margins: false, $vertical-adjust: -0.1em);
-	@include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 0.25em);
+	@include inline-color-fill($color: $color__branding-secondary-dark, $text-color: #fff, $width: 0.25em, $side-margins: true);
 	// @include span-columns(10);
 	// @include shift(1);
 
@@ -173,7 +225,6 @@ article {
 	}
 }
 
-
 /******************************************************************************\
 	Widgets
 \******************************************************************************/
@@ -231,23 +282,34 @@ article {
 @media screen and (max-width: $bp-mid-high){
 	.page-content {
 		padding-left: $width__side-nav--tablet + $content-padding--tablet;
-		padding-right: $width__right-sidebar + $content-min-padding--tablet;
+		// padding-right: $width__right-sidebar + $content-min-padding--tablet;
+		padding-right: $content-min-padding--tablet;
 	}
 
 	.post{
 			padding: 0 0 $content-padding--tablet/2 0;
 
 			&:before{
-			margin-left: -$width__side-nav--tablet - $content-padding--tablet;
-			height: $height__title-bar--tablet;
+			// margin-left: -$width__side-nav--tablet - $content-padding--tablet;
+			// margin-left: -$content-padding--tablet;
+			height: $height__content-color-bar--tablet;
+		}
+		&:first-of-type:before{
+			height: $height__content-color-bar--tablet + 20px;
 		}
 	}
 }
 
-@media screen and (max-width: $bp-min-auto-sidebar){
+@media screen and (max-width: $bp-mid-low){
 	.page-content {
-		padding-left: $width__side-nav--tablet + $content-padding--tablet;
-		padding-right: $content-padding--tablet;
+		padding-left: $content-padding--mobile;
+		padding-right: $content-padding--mobile;
+		// padding-right: $width__right-sidebar + $content-min-padding--tablet;
+		font-size: 0.94em;
+		.post-title, h1, .h1 {
+			font-size: 1.65rem;
+		}
 	}
 }
+
 

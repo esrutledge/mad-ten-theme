@@ -1,0 +1,17 @@
+#wpmem_reg, #wpmem_login{
+	.link-text{
+		font-size: 0.9rem;
+    line-height: 1.4rem;
+	}
+	.button_div{
+		margin-bottom: 20px;
+	}
+	legend{
+		margin-bottom: 28px;
+	}
+}
+
+#wpmem_msg, .wpmem_msg{
+	padding: 0 !important;
+	margin-bottom: 20px;
+}

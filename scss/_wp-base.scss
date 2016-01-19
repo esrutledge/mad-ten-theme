@@ -55,55 +55,55 @@
 	overflow: auto;
 }
 
-.widget {
-	@include span-columns(4);
-	@include font-size(0.8);
-	padding: 3em;
+// .widget {
+// 	@include span-columns(4);
+// 	@include font-size(0.8);
+// 	padding: 3em;
 
-	position: relative;
-	text-align: center;
+// 	position: relative;
+// 	text-align: center;
 
-	h2 {
-		@include font-size(1.5);
-		text-align: center;
-		margin-top: 0;
-		margin-bottom: 1em;
-		// border-bottom: 0.1em solid $color2;
-	}
+// 	h2 {
+// 		@include font-size(1.5);
+// 		text-align: center;
+// 		margin-top: 0;
+// 		margin-bottom: 1em;
+// 		// border-bottom: 0.1em solid $color2;
+// 	}
 
-	ul {
-		padding-left: 1.6em;
-	}
+// 	ul {
+// 		padding-left: 1.6em;
+// 	}
 
-	p {
-		text-align: justify;
-	}
+// 	p {
+// 		text-align: justify;
+// 	}
 
-	table {
-		width: 100%;
-	}
-}
+// 	table {
+// 		width: 100%;
+// 	}
+// }
 
-.widget:nth-child(3n) {
-	@include omega();
-}
+// .widget:nth-child(3n) {
+// 	@include omega();
+// }
 
-.widget:nth-child(3n+1) {
-	clear: left;
-}
+// .widget:nth-child(3n+1) {
+// 	clear: left;
+// }
 
-.widget_search {
+// .widget_search {
 
-	label {
-		display: block;
-		padding: 0.2em 0;
-	}
+// 	label {
+// 		display: block;
+// 		padding: 0.2em 0;
+// 	}
 
-	input {
-		width: 100%;
-	}
+// 	input {
+// 		width: 100%;
+// 	}
 
-}
+// }
 
 #searchsubmit, #submit {
 	padding: 0.3em 0.4em;

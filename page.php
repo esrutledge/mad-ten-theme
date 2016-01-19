@@ -21,10 +21,10 @@ get_header(); ?>
 					wp_link_pages(
 						array(
 							'before'           => '<div class="linked-page-nav"><p>' . sprintf( __( '<em>%s</em> is separated in multiple parts:', 'pu06' ), get_the_title() ) . '<br />',
-							'after'            => '</p></div>',
+							'after'	           => '</p></div>',
 							'next_or_number'   => 'number',
-							'separator'        => ' ',
-							'pagelink'         => __( '&raquo; Part %', 'pu06' ),
+							'separator'	       => ' ',
+							'pagelink'	       => __( '&raquo; Part %', 'pu06' ),
 						)
 					); ?>
 

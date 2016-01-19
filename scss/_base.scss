@@ -6,6 +6,9 @@ $color2: #fafafa;
 $color3: $princeton-orange;
 
 // default styling
+
+html { }
+
 body {
 	color: $color__text-default;
 	position: relative;
@@ -14,6 +17,7 @@ body {
 
 	&, * {
 		box-sizing: inherit;
+		-webkit-tap-highlight-color:rgba(0,0,0,0);
 	}
 }
 
@@ -30,30 +34,36 @@ a {
 	color: $color__branding-primary;
 }
 
-h1 a {
-	// color: $color2;
-}
 
 img {
 	max-width: 100%;
 	height: auto;
 }
 
-input, textarea {
-	// border: 1px solid $color1;
-	// background: $color2;
-	// padding: 0.3em 0.4em;
-	// box-shadow: inset -1px -1px 6px $color1;
+input, textarea { }
+
+input[type="submit"]{
+	margin-top: 16px;
 }
 
 label{
 	margin-right: 8px;
+	margin-left: 8px;
+}
+
+form p {
+	margin-bottom: 8px;
+}
+
+iframe {
+	border: 1px solid #eee;
+	.switcherOuter{
+		display: none !important;
+	}
 }
 
 .site {
 	overflow: hidden;
-	// background: rgba($color1, 0.85);
-	// @include outer-container;
 }
 
 .size-auto,
@@ -67,4 +77,12 @@ label{
 
 .accent-color {
 	color: $color__branding-primary;
+}
+
+.small-print {
+	font-size: 0.75rem;
+	line-height: 1.3em;
+	margin-bottom: 0;
+	opacity: 0.7;
+	margin-top: 16px;
 }

@@ -83,7 +83,8 @@ h3,
 .h3,
 h4,
 h5,
-h6 {
+h6,
+legend {
 	font-family: $header-font;
 	line-height: 1.2;
     font-weight: 500;
@@ -92,9 +93,10 @@ h6 {
 }
 
 
-h1, .h1, h2, .h2 {
+h1, .h1, h2, .h2, legend {
     text-transform: uppercase;
     letter-spacing: 0.025em;
+
 }
 
 h1,

@@ -20,17 +20,15 @@
   $normal-url: $filename + "." + $extension;
   $retina-image-url: if($retina-filename, $retina-filename + "." + $extension, $filename + "@2x" + "." + $extension);
 
-  background-image: url($normal-url);
+  background-image: url("images/" + $normal-url);
 
   @include hidpi {
-    background-image: url($retina-image-url);
+    background-image: url("images/" + $retina-image-url);
   }
 
   // background-size override if provided (otherwise use exact size of given assets)
   @if $background-size {
     background-size: $background-size;
-  } @else {
-    background-size: (image-width($retina-image-url) / 2) (image-height($retina-image-url) / 2);
   }
 
   @if $no-repeat == true { background-repeat: no-repeat; }
