@@ -51,8 +51,18 @@ label{
 	margin-left: 8px;
 }
 
-form p {
-	margin-bottom: 8px;
+form {
+	p {
+		margin-bottom: 8px;
+	}
+	&.reset_button{
+		margin-top: 0;
+		margin-bottom: 32px;
+		input{
+			font-size: 0.81em;
+			margin-top: 0;
+		}
+	}
 }
 
 iframe {

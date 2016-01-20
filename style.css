@@ -435,6 +435,14 @@ label {
 form p {
   margin-bottom: 8px;
 }
+form.reset_button {
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+form.reset_button input {
+  font-size: 0.81em;
+  margin-top: 0;
+}
 
 iframe {
   border: 1px solid #eee;
@@ -621,6 +629,11 @@ h3 {
 
 p ~ h1 {
   margin-top: 3rem;
+}
+
+.bottom-padding {
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
 .sticky {
@@ -1880,6 +1893,30 @@ article:after {
 #wpmem_msg, .wpmem_msg {
   padding: 0 !important;
   margin-bottom: 20px;
+  background: #F9F9F9;
+  border: 1px solid lightGrey;
+  border-radius: 3px;
+}
+#wpmem_msg.padding, .wpmem_msg.padding {
+  padding: 8px 20px 20px !important;
+}
+#wpmem_msg.side-padding, .wpmem_msg.side-padding {
+  padding: 8px 20px !important;
+}
+#wpmem_msg.even-padding, .wpmem_msg.even-padding {
+  padding: 8px 20px !important;
+}
+#wpmem_msg p, .wpmem_msg p {
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+#wpmem_msg label, .wpmem_msg label {
+  line-height: 2em;
+  font-size: 0.94em;
+}
+#wpmem_msg #confirm_no, .wpmem_msg #confirm_no {
+  margin-top: 20px;
+  margin-bottom: 16px;
 }
 
 .footer-centered-content {

@@ -145,3 +145,8 @@ h3 {
 }
 
 p ~ h1 { @include leading-rows(2); }
+
+.bottom-padding{
+    display: inline-block;
+    margin-bottom: 8px;
+}
