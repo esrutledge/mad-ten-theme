@@ -55,6 +55,11 @@ article {
 	Standard-page
 \******************************************************************************/
 
+.page-template-page-home-1 .page-content {
+	padding-left: $width__side-nav + 20px;
+	padding-right: 20px;
+}
+
 .page-content {
 	padding-left: $width__side-nav + $content-padding;
 	// padding-right: $width__right-sidebar + $content-min-padding;
@@ -285,6 +290,10 @@ article {
 		// padding-right: $width__right-sidebar + $content-min-padding--tablet;
 		padding-right: $content-min-padding--tablet;
 	}
+	.page-template-page-home-1 .page-content {
+		padding-left: $width__side-nav--tablet + 20px;
+		padding-right: 20px;
+	}
 
 	.post{
 			padding: 0 0 $content-padding--tablet/2 0;
@@ -309,6 +318,10 @@ article {
 		.post-title, h1, .h1 {
 			font-size: 1.65rem;
 		}
+	}
+	.page-template-page-home-1 .page-content {
+		padding-left: 16px;
+		padding-right: 16px;
 	}
 }
 

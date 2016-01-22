@@ -44,6 +44,7 @@ input, textarea { }
 
 input[type="submit"]{
 	margin-top: 16px;
+	font-size: 0.81em;
 }
 
 label{
@@ -59,7 +60,7 @@ form {
 		margin-top: 0;
 		margin-bottom: 32px;
 		input{
-			font-size: 0.81em;
+			font-size: 0.75em;
 			margin-top: 0;
 		}
 	}

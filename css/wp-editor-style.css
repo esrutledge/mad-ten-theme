@@ -36,6 +36,7 @@ img {
 
 input[type="submit"] {
   margin-top: 16px;
+  font-size: 0.81em;
 }
 
 label {
@@ -51,7 +52,7 @@ form.reset_button {
   margin-bottom: 32px;
 }
 form.reset_button input {
-  font-size: 0.81em;
+  font-size: 0.75em;
   margin-top: 0;
 }
 
@@ -123,6 +124,11 @@ ol {
   line-height: 1.65em;
   margin-top: 0rem;
   margin-bottom: 1.5rem;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
 blockquote {

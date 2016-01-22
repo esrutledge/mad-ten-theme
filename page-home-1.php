@@ -9,7 +9,17 @@
  */
 
 get_header(); ?>
+
 	<section class="page-content primary" role="main">
+		<div class="home-widgets-container">
+			<ul class="home-widgets">
+			<?php
+				if ( function_exists( 'dynamic_sidebar' ) ) :
+					dynamic_sidebar( 'home-sidebar' );
+				endif;
+			?>
+			</ul>
+		</div>
 	</section>
 
 <?php get_footer(); ?>

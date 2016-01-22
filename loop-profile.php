@@ -25,6 +25,25 @@ function csvToArray($file, $delimiter) {
 	return $arr;
 }
 
+function getAccessDate($tier){
+	switch ($tier) {
+	    case 1:
+	        return "Monday, January 25";
+	        // break;
+	    case 2:
+	        return "Friday, January 29";
+	        // break;
+	    case 3:
+	        return "Tuesday, February 2";
+	        // break;
+	    case 3:
+	        return "Saturday, February 6";
+	        // break;
+	    case 5:
+	        return "Wednesday, February 10";
+	        // break;
+	}
+}
 
 $current_user = wp_get_current_user();
 $curr_id = $current_user->ID;
@@ -72,8 +91,6 @@ if($logged_in):
 	$rejected_all = false;
 	$no_text = "Nope, I don't see my name :(";
 
-	
-
 	if($confirm_name_response && !$confirmed_user_name){
 		if($confirm_name_response == 'try_possible_matches'){
 			$widen_net = true;
@@ -86,7 +103,7 @@ if($logged_in):
 		}
 	}
 
-	$feed = 'https://docs.google.com/spreadsheets/d/1P6MrVcfS3KW7DioK6Q_l6h7x_fFTcvFjI4d6d-_5knM/pub?gid=1566598404&single=true&output=csv';
+	$feed = 'https://docs.google.com/spreadsheets/d/1qYMG2XVmaK2GQMYATqCxa_kZu-ZptjUHF_o94_rKw2k/pub?gid=509740763&single=true&output=csv';
 
 	$keys = array(); //Array for Column Titles\
 	$myArr = array(); // Final Array
@@ -120,27 +137,19 @@ if($logged_in):
 			$item_email = $item['Email'];
 			$item_email = $item_email && !empty($item_email) ? strtolower($item_email) : "";
 
-			// if we already know their points ID, then get outta here
-			// if($points_id && !empty($points_id) && $points_id[0] == $item['id']){
-			// 	array_push($narrow_matches, $item);
-			// 	$unique_match = $item;
-			// 	// $confirmed_user = $item;
-			// 	// echo "yayyy first try";	
-			// }
-
-			// if we already know their Preferred Name, then get outta here
+			// if we already know their unique access code or Preferred Name, then we've got 'em!
 			if($confirmed_user_name && $confirmed_user_name == $item['Preferred Name']){
 				$confirmed_user = $item;
-				update_user_meta( $curr_id, 'points_preferred_name', $confirmed_user_name);
+				update_user_meta( $curr_id, 'points_preferred_name', $item['Preferred Name']);
 			}
 
-			// if the email address matches, we got 'em!
-			if($item_email == $email){
-				$probable_match = $item;
+			// if the email address matches, we very probably have them but should still collect surnames matches
+			if($item_email == $email_lc){
+				array_push($narrow_matches, $item);
 			} 
 
 			// otherwise, try name matching
-			else {
+			// else {
 				if(strpos($item_last_name, $last_name) > -1){
 					array_push($surname_matches, $item);
 				}
@@ -148,24 +157,26 @@ if($logged_in):
 				if(strpos($item_last_name, $alt_last_name) > -1) {
 					array_push($surname_matches, $item);
 				} 
-			}
+			// }
 		}
 
 		// if we don't have an confirmed match yet, try to narrow down our name matches
-		if($probable_match != true){
+		if($confirmed_user != true){
 			// if we have too many matches, try to narrow down
 			if(count($surname_matches) > 0){
 				foreach($surname_matches as $item){
 					$item_first_name = $item['First Name'];
 
-					// first try first name
-					if(strpos($item_first_name, $first_name) > -1){
-						array_push($narrow_matches, $item);
-					}
+					if(!in_array($item, $narrow_matches)){
+						// first try first name
+						if(strpos($item_first_name, $first_name) > -1){
+							array_push($narrow_matches, $item);
+						}
 
-					// then nickname just in case
-					if(strpos($item_first_name, $nick_name) > -1){
-						array_push($narrow_matches, $item);
+						// then nickname just in case
+						if(strpos($item_first_name, $nick_name) > -1){
+							array_push($narrow_matches, $item);
+						}
 					}
 				}
 
@@ -238,72 +249,75 @@ endif;
 			<?php 
 
 			// if we already have a confirmed match but they haven't 
-			if($confirmed_user): ?>
+			if($confirmed_user): 
+				$tier = intval($confirmed_user['Tier']); ?>
 				<h2 class="h1"><span class="accent-color">Points</span> Info</h2>
-				<p style="margin-top: 20px;"><strong>'06 Points Name Match:</strong> <?= $confirmed_user['Preferred Name'] ?><br>
+				<p style="margin-top: 20px;margin-bottom: 20px;"><strong>'06 Points Name Match:</strong> <?= $confirmed_user['Preferred Name'] ?><br>
 				<strong>Points Total:</strong> <?= $confirmed_user['Total Points'] ?><br>
-				<strong>Registration Tier:</strong> <?= $confirmed_user['Tier'] ?><br>
-				<?php if($confirmed_user['Access Code'] && !empty($confirmed_user['Access Code'])): ?>
-					<strong>Personal Access Code:</strong> <?= $confirmed_user['Access Code'] ?></p>
-				<?php elseif(intval($confirmed_user['Tier']) < 4): ?>
+				<strong>Registration Tier:</strong> <?= $tier ?><br>
+				<?php if($confirmed_user['Code'] && !empty($confirmed_user['Code'])): ?>
+					<strong>Personal Access Code:</strong> <?= $confirmed_user['Code'] ?></p>
+					<p class="accent-color"><strong>Get ready, you'll be able to register at 8am PT/12pm ET on <?= getAccessDate($tier) ?>!</strong></p>
+				<?php elseif($tier < 4): ?>
 					</p><p class="accent-color"><strong>Check back soon for your personal registration access code!</strong></p>
 				<?php endif; ?>
  
 				<form name="confirm_identity" method="POST" class="reset_button">
+					<p style="font-size: 0.65em;margin-bottom: 2px; margin-left: 2px;">Not you? Click below to unlink this '06 Points match and try again.</p>
 					<input type="hidden" id="confirm_name" name="confirm_name" value="change_identity">
 					<input type="submit" value="Reset my '06 Points match">
 				</form>
 			
-				<?php else: ?>
+			<?php else: ?>
 
-					<form name="confirm_identity" method="POST" class="wpmem_msg padding">
-					
-					<?php if($probable_match): ?>
-							<p>We found an '06 Points match for your information!<br>Are you <strong><?= $probable_match['Preferred Name'] ?>?</strong></p>
-							<input type="radio" id="confirm_yes" name="confirm_name" value="<?= $probable_match['Preferred Name'] ?>"><label for="confirm_yes">Yup, that's me!</label><br>
-							<input type="radio" id="confirm_no_bool" name="confirm_name" value="try_possible_matches"><label for="confirm_no_bool">Nope, I don't see my name</label><br>
-							<input type="submit" value="Submit">
+				<form name="confirm_identity" method="POST" class="wpmem_msg padding">
+				
+				<?php if($probable_match && !$no_more): ?>
+						<p>We found an '06 Points match for your information!<br>Are you <strong><?= $probable_match['Preferred Name'] ?>?</strong></p>
+						<input type="radio" id="confirm_yes" name="confirm_name" value="<?= $probable_match['Preferred Name'] ?>"><label for="confirm_yes">Yup, that's me!</label><br>
+						<input type="radio" id="confirm_no_bool" name="confirm_name" value="try_possible_matches"><label for="confirm_no_bool">Nope, I don't see my name</label><br>
+						<input type="submit" value="Submit">
 
-					<?php elseif($likely_matches): ?>
-							<p><strong>We found more than one potential '06 Points match for your information!</strong></p>
-							<p>Are any of these people you?</p>
-							<?php foreach($likely_matches as $index => $match): ?>
-							 	<input type="radio" id="confirm_specific_name_<?= $index ?>" name="confirm_name" value="<?= $match['Preferred Name'] ?>"><label for="confirm_specific_name_<?= $index ?>"><?= $match['Preferred Name'] ?></label><br>
-							<?php endforeach; ?>
-							<input type="radio" id="confirm_no" name="confirm_name" value="try_possible_matches"><label for="confirm_no"><?= $no_text ?></label><br>
-							<input type="submit" value="Submit">
-
-					<?php elseif($possible_matches): ?>
-						<?php if($widen_net): ?>
-							<p><strong>Okay, let's widen the net.</strong></p>
-							<p>Do any of these names belong to you?</p>
-						<?php else: ?>
-							<p><strong>We couldn't find any complete '06 Points matches for your information, but we did find some matches to your last name.</strong></p>
-							<p>Are any of these people you perchance?</p>
-						<?php endif; ?>
-						<?php foreach($possible_matches as $index => $match): ?>
+				<?php elseif($likely_matches): ?>
+						<p><strong>We found more than one potential '06 Points match for your information!</strong></p>
+						<p>Are any of these people you?</p>
+						<?php foreach($likely_matches as $index => $match): ?>
 						 	<input type="radio" id="confirm_specific_name_<?= $index ?>" name="confirm_name" value="<?= $match['Preferred Name'] ?>"><label for="confirm_specific_name_<?= $index ?>"><?= $match['Preferred Name'] ?></label><br>
 						<?php endforeach; ?>
-						<input type="radio" id="confirm_no" name="confirm_name" value="no_possible_matches"><label for="confirm_no"><?= $no_text ?></label><br>
+						<input type="radio" id="confirm_no" name="confirm_name" value="try_possible_matches"><label for="confirm_no"><?= $no_text ?></label><br>
 						<input type="submit" value="Submit">
-					
-					<?php else: ?>
-							<?php if($rejected_all): ?>
-								<p><strong>Hmmm...we don't have any more potential matches.</strong></p>
-							<?php else: ?>
-								<p><strong>Uh oh! We can't find any potential '06 Points matches for your information.</strong></p>
-							<?php endif; ?>
 
-							<p>Make sure that you spelled everything correctly in your profile information and that 
-							any previous or maiden names are entered in the Previous Last Name field.</p>
-							<p>If you're sure all of your information is correct and you're still seeing this message,
-							<a href="mailto:kessler.melissa@gmail.com,michael.rockett@gmail.com,esrutledge@gmail.com?
-											subject=[HELP%20NEEDED]%20Missing%20'06%20Points%20Match:%20<?= $name_string ?>&
-											body=Account%20Name:%20<?= $name_string ?>
-											<?php if($alt_last_name){ echo '%0D%0APrevious%20Last%20Name:%20' . $alt_last_name; }?>
-											%0D%0AProvided%20Email:%20<?= $email ?>%0D%0A%0D%0A" >contact us by email</a>
-							and we'll make sure we get you hooked up to your '06 Points data!</p>
-							<input type="submit" value="Start Over">
+				<?php elseif($possible_matches): ?>
+					<?php if($widen_net): ?>
+						<p><strong>Okay, let's widen the net.</strong></p>
+						<p>Do any of these names belong to you?</p>
+					<?php else: ?>
+						<p><strong>We couldn't find any complete '06 Points matches for your information, but we did find some matches to your last name.</strong></p>
+						<p>Are any of these people you perchance?</p>
+					<?php endif; ?>
+					<?php foreach($possible_matches as $index => $match): ?>
+					 	<input type="radio" id="confirm_specific_name_<?= $index ?>" name="confirm_name" value="<?= $match['Preferred Name'] ?>"><label for="confirm_specific_name_<?= $index ?>"><?= $match['Preferred Name'] ?></label><br>
+					<?php endforeach; ?>
+					<input type="radio" id="confirm_no" name="confirm_name" value="no_possible_matches"><label for="confirm_no"><?= $no_text ?></label><br>
+					<input type="submit" value="Submit">
+				
+				<?php else: ?>
+						<?php if($rejected_all): ?>
+							<p><strong>Hmmm...we don't have any more potential matches.</strong></p>
+						<?php else: ?>
+							<p><strong>Uh oh! We can't find any potential '06 Points matches for your information.</strong></p>
+						<?php endif; ?>
+
+						<p>Make sure that you spelled everything correctly in your profile information and that 
+						any previous or maiden names are entered in the Previous Last Name field.</p>
+						<p>If you're sure all of your information is correct and you're still seeing this message,
+						<a href="mailto:kessler.melissa@gmail.com,michael.rockett@gmail.com,esrutledge@gmail.com?
+										subject=[HELP%20NEEDED]%20Missing%20'06%20Points%20Match:%20<?= $name_string ?>&
+										body=Account%20Name:%20<?= $name_string ?>
+										<?php if($alt_last_name){ echo '%0D%0APrevious%20Last%20Name:%20' . $alt_last_name; }?>
+										%0D%0AProvided%20Email:%20<?= $email ?>%0D%0A%0D%0A" >contact us by email</a>
+						and we'll make sure we get you hooked up to your '06 Points data!</p>
+						<input type="submit" value="Try Again">
 					<?php endif; ?>
 
 				</form>
