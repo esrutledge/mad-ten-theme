@@ -25,6 +25,31 @@ function csvToArray($file, $delimiter) {
 	return $arr;
 }
 
+function getAccessDate($tier, $as_string = false){
+	switch ($tier) {
+	    case 1:
+	    	$t = strtotime('2016-01-25 16:00:00');
+	        break;
+	    case 2:
+	    	$t = strtotime('2016-01-29 16:00:00');
+	        break;
+	    case 3:
+	    	$t = strtotime('2016-02-02 16:00:00');
+	        break;
+	    case 4:
+	    	$t = strtotime('2016-02-06 16:00:00');
+	        break;
+	    case 5:
+	    	$t = strtotime('2016-02-10 16:00:00');
+	        break;
+	}
+
+	return $as_string ? date("F d, Y", $t) : $t;
+}
+
+function alreadyHasAccess($tier){
+	return getAccessDate($tier) < strtotime('now');
+}
 
 $current_user = wp_get_current_user();
 $curr_id = $current_user->ID;
@@ -54,7 +79,7 @@ if($logged_in):
 	$reset_match = false;
 
 	if($confirm_name_response && $confirm_name_response == 'change_identity'){
-		update_user_meta( $curr_id, 'housing_preferred_name', false);
+		update_user_meta( $curr_id, 'points_preferred_name', false);
 		$reset_match = true;
 	}
 
@@ -62,7 +87,7 @@ if($logged_in):
 	$surname_matches = array();
 	$narrow_matches = array();
 
-	$meta_preferred_name = get_user_meta($curr_id, 'housing_preferred_name'); // if the user has previously confirmed their identity
+	$meta_preferred_name = get_user_meta($curr_id, 'points_preferred_name'); // if the user has previously confirmed their identity
 	$confirmed_user_name = $meta_preferred_name && !empty($meta_preferred_name) ? $meta_preferred_name[0] : false;
 	$confirmed_user = false; // if the user has actively confirmed their identity
 	$unique_match = false; // if the user is matched based on a unique field like ID
@@ -86,11 +111,10 @@ if($logged_in):
 		}
 	}
 
-	$feed = 'https://docs.google.com/spreadsheets/d/1wrctf4Rb7wgNY1wgP2FXBpfSibLSNKuUuSif2bjx8DU/pub?gid=1139113070&single=true&output=csv';
+	$feed = 'https://docs.google.com/spreadsheets/d/1qYMG2XVmaK2GQMYATqCxa_kZu-ZptjUHF_o94_rKw2k/pub?gid=509740763&single=true&output=csv';
 
 	$keys = array(); //Array for Column Titles\
-	$spreadsheetRows = array(); // Final Array\
-	$roomGroupings = array(); // Final Array
+	$myArr = array(); // Final Array
 	$data = csvToArray($feed, ',');
 
 	$count = count($data) - 1;
@@ -110,31 +134,21 @@ if($logged_in):
 	//Combine Keys and Values
 	for ($j = 0; $j < $count; $j++) {
 	  $d = array_combine($keys, $data[$j]);
-	  $spreadsheetRows[$j] = $d;
+	  $myArr[$j] = $d;
 	}
 
 	if(!$no_matches):
 
 		// Whatever you want to do inside the loop
-		foreach($spreadsheetRows as $item){
+		foreach($myArr as $item){
 			$item_last_name = $item['Last Name'];
 			$item_email = $item['Email'];
 			$item_email = $item_email && !empty($item_email) ? strtolower($item_email) : "";
-			$room_num = $item['Room Number'];
-			$room_key = str_replace(' ', '', strtolower($room_num));
-			// store the room key for later comparison
-			$item['room_key'] = $room_key;
-
-			if(empty($roomGroupings[$room_key])){
-				$roomGroupings[$room_key] = array();
-			}
-
-			array_push($roomGroupings[$room_key], $item['Preferred Name']);
 
 			// if we already know their unique access code or Preferred Name, then we've got 'em!
 			if($confirmed_user_name && $confirmed_user_name == $item['Preferred Name']){
 				$confirmed_user = $item;
-				update_user_meta( $curr_id, 'housing_preferred_name', $item['Preferred Name']);
+				update_user_meta( $curr_id, 'points_preferred_name', $item['Preferred Name']);
 			}
 
 			// if the email address matches, we very probably have them but should still collect surnames matches
@@ -152,8 +166,6 @@ if($logged_in):
 			}
 		}
 
-
-
 		// if we don't have an confirmed match yet, try to narrow down our name matches
 		if($confirmed_user != true){
 			// if we have too many matches, try to narrow down
@@ -163,12 +175,12 @@ if($logged_in):
 
 					if(!in_array($item, $narrow_matches)){
 						// first try first name
-						if(strpos(strtolower($item_first_name), strtolower($first_name)) > -1 || strpos(strtolower($first_name), strtolower($item_first_name)) > -1){
+						if(strpos(strtolower($item_first_name), strtolower($first_name)) > -1){
 							array_push($narrow_matches, $item);
 						}
 
 						// then nickname just in case
-						if(strpos(strtolower($item_first_name), strtolower($nick_name)) > -1 || strpos(strtolower($nick_name), strtolower($item_first_name)) > -1){
+						if(strpos(strtolower($item_first_name), strtolower($nick_name)) > -1){
 							if(!in_array($item, $narrow_matches)){
 								array_push($narrow_matches, $item);
 							}
@@ -241,38 +253,53 @@ endif;
 
 			// if we already have a confirmed match but they haven't
 			if($confirmed_user):
-				$room_number = $confirmed_user['Room Number'];
-				$room_type = $confirmed_user['Room Type'];
-				$room_key = $confirmed_user['room_key'];
-				$full_name = $confirmed_user['Preferred Name'];
-				$room_occupants = $roomGroupings[$room_key];
-				$roommates = array();
+				$tier = intval($confirmed_user['Tier']);
+				$has_access = alreadyHasAccess($tier);
+				$access_time = getAccessDate($tier);
 
-				foreach($room_occupants as $name):
-					if($full_name !== $name){ array_push($roommates, $name); }
-				endforeach;
+				$now = strtotime('now');
+				$diff = $access_time - $now;
+				// $days = floor($diff / (60 * 60 * 24));
+				// $hours = floor($diff / (60 * 60)) - ($days * 24);
+				// $minutes = floor($diff / (60)) - ($days * 24 * 60) - ($hours * 60);
+
+				$registration_open = strtotime('2016-01-25 16:00:00') < strtotime('now');
+
+				$days_until = intval(date('d', $diff)) - 1;
+				$buy_message = 'on ' . getAccessDate($tier, true);
+
+				// switch ($days_until) {
+				//     case 0:
+				//     	$buy_message = 'today';
+				//         break;
+				//     case 1:
+				//     	$buy_message = 'tomorrow';
+				//         break;
+				// }
 			?>
-				<h2 class="h1" style="margin-top: 48px;"><span class="accent-color">Housing</span> Info</h2>
-				<p style="margin-top: 20px;margin-bottom: 24px;"><strong>On-Campus Housing Name Match:</strong> <?= $confirmed_user['Preferred Name'] ?><br>
-				<strong>Room Number:</strong> <?= $room_number ?><br>
-				<strong>Room Type:</strong> <?= $room_type ?><br>
-				<?php if(count($roommates) > 0): ?>
-					<strong>Roommates:</strong> <?= join(',  ', $roommates) ?><br>
-				<?php endif; ?>
+				<h2 class="h1" style="margin-top: 48px;"><span class="accent-color">Points</span> Info</h2>
+				<p style="margin-top: 20px;margin-bottom: 24px;"><strong>'06 Points Name Match:</strong> <?= $confirmed_user['Preferred Name'] ?><br>
+				<strong>Registration Tier:</strong> <?= $tier ?><br>
 
 				<?php if($confirmed_user['Code'] && !empty($confirmed_user['Code'])): ?>
 					<strong>Personal Access Code:</strong> <?= $confirmed_user['Code'] ?><br>
 					<em>Find out where to enter this code in our <strong><a href="/reunions-2016/#how-to-register">Step-by-Step Registration Guide.</a></strong></em></p>
 
 					<div class="reg-info">
+						<?php if($has_access): ?>
+							<p class="accent-color" style="font-size: 1.25em; line-height: 1.3em; margin-bottom: 8px;"><a href="https://www.eventbrite.com/e/mad-ten-reunion-tickets-19931190728"><strong>Your registration window is open! Click here to register now!</strong></a></p>
+						<?php else: ?>
+							<p class="accent-color" style="font-size: 1.25em; line-height: 1.3em; margin-bottom: 8px;"><strong>Get ready, you'll be eligible to purchase housing <?= $buy_message ?> at 8am&nbsp;PT/11am&nbsp;ET!</strong></p>
+							<p style="margin: 8px 0;"><em>If you're not looking to purchase housing, you can <a href="https://www.eventbrite.com/e/mad-ten-reunion-tickets-19931190728"><strong>register at this link</strong></a> any time<?= $registration_open ? '' : ' after 8am&nbsp;PT/11am&nbsp;ET on Monday, January 25' ?>!</em>
+						<?php endif; ?>
 						<p style="margin-top: 8px;">Questions? <a href="/reunions-2016">Check out our Reunions page</a>.</p>
 					</div>
 				<?php endif; ?>
 
 				<form name="confirm_identity" method="POST" class="reset_button">
-					<p style="font-size: 0.65em;margin-bottom: 2px; margin-top: 36px; margin-left: 2px;">Not you? Click below to unlink this match and try again.</p>
+					<p style="font-size: 0.65em;margin-bottom: 2px; margin-top: 36px; margin-left: 2px;">Not you? Click below to unlink this '06 Points match and try again.</p>
 					<input type="hidden" id="confirm_name" name="confirm_name" value="change_identity">
-					<input type="submit" value="Reset my match">
+					<input type="submit" value="Reset my '06 Points match">
 				</form>
 
 			<?php else: ?>
@@ -280,13 +307,13 @@ endif;
 				<form name="confirm_identity" method="POST" class="wpmem_msg padding">
 
 				<?php if($probable_match && !$no_more): ?>
-						<p>We found a probable on-campus housing match for your information!<br>Are you <strong><?= $probable_match['Preferred Name'] ?>?</strong></p>
+						<p>We found an '06 Points match for your information!<br>Are you <strong><?= $probable_match['Preferred Name'] ?>?</strong></p>
 						<input type="radio" id="confirm_yes" name="confirm_name" value="<?= $probable_match['Preferred Name'] ?>"><label for="confirm_yes">Yup, that's me!</label><br>
 						<input type="radio" id="confirm_no_bool" name="confirm_name" value="try_possible_matches"><label for="confirm_no_bool">Nope, I don't see my name</label><br>
 						<input type="submit" value="Submit">
 
 				<?php elseif($likely_matches): ?>
-						<p><strong>We found more than one potential on-campus housing match for your information!</strong></p>
+						<p><strong>We found more than one potential '06 Points match for your information!</strong></p>
 						<p>Are any of these people you?</p>
 						<?php foreach($likely_matches as $index => $match): ?>
 						 	<input type="radio" id="confirm_specific_name_<?= $index ?>" name="confirm_name" value="<?= $match['Preferred Name'] ?>"><label for="confirm_specific_name_<?= $index ?>"><?= $match['Preferred Name'] ?></label><br>
@@ -299,7 +326,7 @@ endif;
 						<p><strong>Okay, let's widen the net.</strong></p>
 						<p>Do any of these names belong to you?</p>
 					<?php else: ?>
-						<p><strong>We couldn't find any complete on-campus housing name matches for your information, but we did find some matches to your last name.</strong></p>
+						<p><strong>We couldn't find any complete '06 Points matches for your information, but we did find some matches to your last name.</strong></p>
 						<p>Are any of these people you perchance?</p>
 					<?php endif; ?>
 					<?php foreach($possible_matches as $index => $match): ?>
@@ -312,19 +339,18 @@ endif;
 						<?php if($rejected_all): ?>
 							<p><strong>Hmmm...we don't have any more potential matches.</strong></p>
 						<?php else: ?>
-							<p><strong>We can't find any potential on-campus housing matches for your information.</strong></p>
+							<p><strong>Uh oh! We can't find any potential '06 Points matches for your information.</strong></p>
 						<?php endif; ?>
 
-						<p>If you didn't purchase on-campus housing, then this is totally normal! If you did and
-						are trying to find out your room assignment, make sure that you spelled everything correctly in your profile information
-						and that any previous or maiden names are entered in the Previous Last Name field.</p>
-						<p>If you're sure all of your information is correct and you're still seeing this message despite having purchased housing,
+						<p>Make sure that you spelled everything correctly in your profile information and that
+						any previous or maiden names are entered in the Previous Last Name field.</p>
+						<p>If you're sure all of your information is correct and you're still seeing this message,
 						<a href="mailto:reunionsclassof2006@gmail.com?
-										subject=[HELP%20NEEDED]%20Missing%20On-Campus%20Housing%20Match:%20<?= $name_string ?>&
+										subject=[HELP%20NEEDED]%20Missing%20'06%20Points%20Match:%20<?= $name_string ?>&
 										body=Account%20Name:%20<?= $name_string ?>
 										<?php if($alt_last_name){ echo '%0D%0APrevious%20Last%20Name:%20' . $alt_last_name; }?>
 										%0D%0AProvided%20Email:%20<?= $email ?>%0D%0A%0D%0A" >contact us by email</a>
-						and we'll make sure we get you hooked up to your housing info!</p>
+						and we'll make sure we get you hooked up to your '06 Points data!</p>
 						<input type="submit" value="Try Again">
 					<?php endif; ?>
 
